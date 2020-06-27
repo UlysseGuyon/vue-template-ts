@@ -12,7 +12,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    {{#axios}}
+    "axios": "^0.19.2",
+    {{/axios}}
     "core-js": "^3.6.5",
+    {{#formatters}}
+    "moment": "^2.27.0",
+    "numeral": "^2.0.6",
+    {{/formatters}}
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.2",
