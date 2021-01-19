@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    Application {{ name }} by {{ author }}
+    Application {{ title }} by {{ author }}
   </div>
 </template>
 
