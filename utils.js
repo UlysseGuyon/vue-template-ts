@@ -14,15 +14,28 @@ exports.installDependencies = function installDependencies(
   });
 }
 
+exports.installPlugins = function installPlugins(
+  cwd,
+  executable = 'vue',
+  color,
+  pluginList
+) {
+  console.log(`\n\n# ${color('Installing plugins ...')}`);
+  console.log('# ========================\n');
+  return runCommand(executable, ['add', ...pluginList], {
+    cwd
+  });
+}
+
 exports.printMessage = function printMessage(data, { green, yellow }) {
   const message = `
-# ${green('Custom TS project template generated !')}
+# ${green(`${data.name} generated !`)}
 # ========================
 To get started:
   ${yellow(
     `${data.inPlace ? '' : `cd ${data.destDirName}\n`}${installMsg(
       data
-    )}npm run lint\n  npm start`
+    )}  npm run lint\n  npm start`
   )}
 `;
   console.log(message);

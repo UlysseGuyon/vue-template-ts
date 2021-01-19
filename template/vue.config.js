@@ -10,7 +10,7 @@ const devProxy =
         target: `${
           process.env.VUE_APP_API_PROTOCOL
         }://${
-          process.env.VUE_APP_API_IP
+          process.env.VUE_APP_API_DOMAIN
         }:${
           process.env.VUE_APP_API_PORT
         }`,

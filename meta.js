@@ -1,5 +1,5 @@
 const path = require('path');
-const { installDependencies, printMessage } = require('./utils');
+const { installDependencies, installPlugins, printMessage } = require('./utils');
 
 module.exports = {
   prompts: {
@@ -43,17 +43,41 @@ module.exports = {
       message: 'Proxy route',
       default: '/api'
     },
-    devServ: {
+    proxyProtocol: {
       when: 'makeProxy',
       type: 'string',
       required: false,
-      message: 'Developpement server address',
-      default: 'http://localhost:443'
+      message: 'Proxy protocol',
+      default: 'http'
+    },
+    proxyDomain: {
+      when: 'makeProxy',
+      type: 'string',
+      required: false,
+      message: 'Proxy domain',
+      default: 'localhost'
+    },
+    proxyPort: {
+      when: 'makeProxy',
+      type: 'string',
+      required: false,
+      message: 'Proxy port',
+      default: '8080'
     },
     formatters: {
       type: 'confirm',
       message: 'Add formatter packages (numeral, moment) ?',
       default: false
+    },
+    installVuetify: {
+      type: 'confirm',
+      message: 'Add Vuetify plugin ?',
+      default: true
+    },
+    installI18n: {
+      type: 'confirm',
+      message: 'Add i18n plugin ?',
+      default: true
     },
     autoInstall: {
       type: 'confirm',
@@ -70,7 +94,16 @@ module.exports = {
       installDependencies(cwd, 'npm', green)
         .then(() => printMessage(data, green))
         .catch(e => console.error(chalk.red('Error:'), e))
+        .then(() => {
+          const pluginList = [];
+          if (data.installVuetify)
+            pluginList.push('vuetify');
+          if (data.installI18n)
+            pluginList.push('i18n');
+
+          return installPlugins(cwd, 'vue', green, pluginList);
+        });
     } else
-      printMessage(data, chalk)
+      printMessage(data, chalk);
   }
 };
